@@ -1,1 +1,22 @@
-import{useState}from'react';import{withTheme,type Theme,type ThemeProps}from'./hoc/withTheme';import'./App.css';type PanelProps=ThemeProps&{title:string};function Dashboard({theme,title}:PanelProps){return <section className={`dashboard ${theme}`}><span className="badge">{theme} theme</span><h2>{title}</h2><p>Тема передана через пропсы компонентом высшего порядка — без Context API.</p><div className="stats"><article><b>24</b><span>проекта</span></article><article><b>98%</b><span>готово</span></article></div></section>}const ThemedDashboard=withTheme(Dashboard);export default function App(){const[theme,setTheme]=useState<Theme>('light');return <main className={theme}><header><h1>Theme HOC</h1><button onClick={()=>setTheme(value=>value==='light'?'dark':'light')}>{theme==='light'?'Включить тёмную':'Включить светлую'}</button></header><ThemedDashboard theme={theme} title="Панель управления"/></main>}
+import { useState } from "react";
+import { Dashboard } from "./components/Dashboard";
+import { ThemeHeader } from "./components/ThemeHeader";
+import { withTheme, type Theme } from "./hoc/withTheme";
+import "./App.css";
+
+const ThemedDashboard = withTheme(Dashboard);
+
+export default function App() {
+  const [theme, setTheme] = useState<Theme>("light");
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === "light" ? "dark" : "light"));
+  };
+
+  return (
+    <main className={theme}>
+      <ThemeHeader theme={theme} onToggle={toggleTheme} />
+      <ThemedDashboard theme={theme} title="Панель управления" />
+    </main>
+  );
+}

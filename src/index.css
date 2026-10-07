@@ -1,1 +1,7 @@
-html{min-width:320px}button{font-family:inherit;cursor:pointer}
+html {
+  min-width: 320px;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
